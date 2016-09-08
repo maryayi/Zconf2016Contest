@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZCONF 2016 SARAVAPARS CODING CONTEST</title>
+  <link rel="stylesheet" href="./style.css" media="screen" title="no title" charset="utf-8">
+  <script src="./jquery-3.1.0.min.js"></script>
+  <script src="./num2word.js" charset="utf-8"></script>
+</head>
+<body>
+  <div class="container">
+  <h1>ZCONF 2016 <a href="http://zconf.saravapars.com/" target="_blank">SARAVAPARS</a> CODING CONTEST</h1>
+  <input type="number" name="number" id="number" placeholder="Enter Number" >
+  <input type="text" name="words" id="words" placeholder="Enter a Word">
+  <button id="addWord">Add Word</button>
+  <div class="showbox">
+    <div>
+      <h2 style="text-align: center; color: purple;" class="hidden inputTitle">Input Words</h2>
+      <ul id="wordList"></ul></div>
+
+    <div id="result">
+      <h2 style="text-align: center; color: green;" class="hidden resultTitle">Matched Words</h2>
+    </div>
+  </div>
+
+  <button id="submit">check!</button>
+  <p style="text-align: center;">Created By <a href="https://twitter.com/maryayi" target="_blank">M.Aryayi</a> <span style="display:inline-block; transform: rotate(180deg);">&copy;</span> 2016</p>
+  </div>
+  <script>
+  $(document).ready(function(){
+    wordsArr = [];
+    $('#addWord').on('click', function(){
+      if ($('#words').val()) {
+        $('.inputTitle').removeClass('hidden');
+        $('.showbox').children().first().addClass('inputWords');
+        wordsArr.push($('#words').val().toUpperCase());
+        $('#wordList').append('<li>' + $('#words').val().toUpperCase() + '</li>');
+        $('#words').val('');
+        $('li').css('color', 'black');
+        // $('.showbox').
+      }
+    })
+    $('#submit').on('click', function(){
+      if ($('#number').val() && wordsArr.length > 0) {
+        $('.showbox').children().last().addClass('resultWords');
+        var number = $('#number').val();
+        var resultArr = num2word(wordsArr, number);
+        $('#result').html('<h2 style="text-align: center; color: green;" class="hidden resultTitle">Matched Words</h2>');
+        $('.resultTitle').removeClass('hidden');
+        for (var ii=0; ii<resultArr.length; ii++) {
+          // console.log(number);
+          console.log(resultArr);
+          $('#result').append('<h3>' + resultArr[ii] + '</h3>');
+        }
+        if (resultArr.length === 0) {
+          $('.resultTitle').removeClass('hidden');
+          $('#result').append('<h3 style="color:red;">&lt;NOTHING FOUND!&gt;</h3>');
+        }
+      } else {
+        alert('You Should Enter a Number and atleast ADD one word!');
+      }
+    })
+  });
+  </script>
+</body>
+</html>
