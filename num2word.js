@@ -13,7 +13,7 @@ function num2word(wordList, number){
     for (var ii=0; ii<item.length; ii++) {
       itemNum += String(charLists.indexOf(item[ii])+1);
     }
-    return itemNum === number;
+    return itemNum === numStr;
   });
   return result;
 }
